@@ -13,6 +13,7 @@ doing it and I used what I learned in the module itself. Nothing monumental but 
 
 * This was designed for use in the bottom_bar position of your MagicMirror
 * Can share bottom bar position with newsfeed module via Hello_Lucy
+See here: https://www.youtube.com/watch?v=mTGoxM6JyBE
 * Minutely updates for current conditions
 * CSS provided for coloring and sizing. Make it your own.
 
