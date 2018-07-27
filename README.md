@@ -41,13 +41,13 @@ doing it and I used what I learned in the module itself. Nothing monumental but 
 		module: "MMM-BMW-DS",
 		position: "bottom_bar",               // bottom_bar is best
 		config: {
-            apiKey: "YOUR API KEY GOES HERE", // Free API key @ darksky.net
-            tempUnits: "F",		              // C of F
-            lat: 'YOUR LATITUDE GOES HERE', 
-            lng: 'YOUR LONGITUDE GOES HERE',
-			useHeader: false,               
-			header: "Your header",
-			maxWidth: "100%",
+                apiKey: "YOUR API KEY GOES HERE", // Free API key @ darksky.net
+                tempUnits: "F",		              // C of F
+                lat: 'YOUR LATITUDE GOES HERE', 
+                lng: 'YOUR LONGITUDE GOES HERE',
+                useHeader: false,               
+                header: "Your header",
+                maxWidth: "100%",
 		}
 	},
 	
