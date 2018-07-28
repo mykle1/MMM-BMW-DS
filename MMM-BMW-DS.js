@@ -137,7 +137,7 @@ Module.register("MMM-BMW-DS", {
 
     processWeather: function(data) {
         this.forecast = data;
-        console.log(this.forecast);
+//        console.log(this.forecast);
         this.loaded = true;
     },
 
