@@ -33,6 +33,21 @@ Module.register("MMM-BMW-DS", {
         }
     },
 
+    /* // For choosing different css files for different fonts
+     getStyles: function() {
+        if (this.config.css == "NOAA3") {
+            return ["modules/MMM-NOAA3/css/MMM-NOAA3.css"];
+        } else if (this.config.css == "NOAA2") {
+            return ["modules/MMM-NOAA3/css/MMM-NOAA2.css"];
+        } else if (this.config.css == "NOAA1") {
+			return ["modules/MMM-NOAA3/css/MMM-NOAA1.css"];
+		} else {
+			return ["modules/MMM-NOAA3/css/MMM-NOAA4.css"];
+		}
+    },
+*/
+    
+
     getStyles: function() {
         return ["MMM-BMW-DS.css"];
     },
@@ -63,7 +78,7 @@ Module.register("MMM-BMW-DS", {
         wrapper.style.maxWidth = this.config.maxWidth;
 
         if (!this.loaded) {
-            wrapper.innerHTML = "Boring weather . . .";
+            wrapper.innerHTML = "Acquiring your weather . . .";
             wrapper.classList.add("bright", "light", "small");
             return wrapper;
         }
@@ -76,18 +91,32 @@ Module.register("MMM-BMW-DS", {
         }
 
             var forecast = this.forecast;
-//		    var apiKey = this.config.apiKey;
         
         
             var current = document.createElement("div");
             current.classList.add("small", "bright", "current");
+        
+            var numbnuts = forecast.minutely;
+        if (typeof numbnuts !== 'undefined') { // This checks if element exists courtesy of @CBD
+            
         if (this.config.tempUnits != "F") {
 			current.innerHTML = "Current conditions: &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
 			wrapper.appendChild(current);
 		} else {
 			current.innerHTML = "Current conditions: &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp "  + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
 			wrapper.appendChild(current);
-		}
+		}  
+        } else {
+            
+          if (this.config.tempUnits != "F") {
+			current.innerHTML = "Current conditions: &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.currently.icon + ".png>" +  " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.currently.summary;
+			wrapper.appendChild(current);
+		} else {
+			current.innerHTML = "Current conditions: &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.currently.icon + ".png>" +  " &nbsp &nbsp "  + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.currently.summary;
+			wrapper.appendChild(current);
+		}   
+        
+    }  
         
         
         var summary = document.createElement("div");
