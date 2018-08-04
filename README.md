@@ -42,10 +42,11 @@ See here: https://www.youtube.com/watch?v=mTGoxM6JyBE
 		module: "MMM-BMW-DS",
 		position: "bottom_bar",               // bottom_bar is best
 		config: {
-                apiKey: "YOUR API KEY GOES HERE", // Free API key @ darksky.net
+                apiKey: "YOUR API KEY GOES HERE",     // Free API key @ darksky.net
                 tempUnits: "F",		              // C of F
                 lat: 'YOUR LATITUDE GOES HERE', 
                 lng: 'YOUR LONGITUDE GOES HERE',
+		css: '1',                             // 1-4 (Default, Clean, Lord of the Rings, Handwriting)
                 useHeader: false,               
                 header: "Your header",
                 maxWidth: "100%",
