@@ -46,7 +46,7 @@ See here: https://www.youtube.com/watch?v=mTGoxM6JyBE
                 tempUnits: "F",		              // C of F
                 lat: 'YOUR LATITUDE GOES HERE', 
                 lng: 'YOUR LONGITUDE GOES HERE',
-		css: '1',                             // 1-4 (Default, Clean, Lord of the Rings, Handwriting)
+		    css: '1',                         // 1-4 (Default, Clean, Lord of the Rings, Handwriting)
                 useHeader: false,               
                 header: "Your header",
                 maxWidth: "100%",
