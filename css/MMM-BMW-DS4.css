@@ -1,0 +1,37 @@
+/* Copy and paste any or all of these css entries into your custom.css file inside your
+ * css folder. The functions are annotated to make things as easy as possible for you.
+ * Use any colors you want! Go to - "http://htmlcolorcodes.com/color-picker/"
+ * Pick your color, copy and paste the HEX number. Example - #62FF00 = bright green.
+ */
+
+@import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah');
+
+.MMM-BMW-DS .header {
+  color: yellow;               /* Header color. */
+}
+.MMM-BMW-DS .image {              /* icon size */
+   width: 1.75%;
+   height: 1.75%;
+   margin-top: 0px;
+   margin-bottom: -10px;
+}
+
+.MMM-BMW-DS .current {
+  color: #FFFFFF;               /* text forecast color. Default is white. */
+  font-family: Gloria Hallelujah;
+  font-size: .6em;
+}
+
+.MMM-BMW-DS .summary {
+  color: #FFFFFF;               /* text forecast color. Default is white. */
+  font-family: Gloria Hallelujah;
+  font-size: .6em;  
+  display: none;           /* uncomment to hide */
+}
+
+.MMM-BMW-DS .daily {
+  color: #FFFFFF;               /* days of the week color. Default is white. */
+  font-family: Gloria Hallelujah;
+  font-size: .6em; 
+}
+
