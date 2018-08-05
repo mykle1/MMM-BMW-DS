@@ -36,22 +36,9 @@ Module.register("MMM-BMW-DS", {
 
      // For choosing different css files for different fonts
      getStyles: function() {
-        if (this.config.css == "1") {
-            return ["modules/MMM-BMW-DS/css/MMM-BMW-DS1.css"]; // MM default font
-        } else if (this.config.css == "2") {
-            return ["modules/MMM-BMW-DS/css/MMM-BMW-DS2.css"]; // Muli (very clean)
-        } else if (this.config.css == "3") {
-			return ["modules/MMM-BMW-DS/css/MMM-BMW-DS3.css"]; // Lord of the Rings (like)
-		} else if (this.config.css == "4") {
-			return ["modules/MMM-BMW-DS/css/MMM-BMW-DS4.css"]; // Handwriting
-		}
+         return ["modules/MMM-BMW-DS/css/MMM-BMW-DS" + this.config.css + ".css"];
     },
 
-    
-
-//    getStyles: function() {
-//        return ["MMM-BMW-DS.css"];
-//    },
     
     getScripts: function() {
         return ["moment.js"];
@@ -167,7 +154,7 @@ Module.register("MMM-BMW-DS", {
 
     processWeather: function(data) {
         this.forecast = data;
-        console.log(this.forecast);
+//        console.log(this.forecast);
         this.loaded = true;
     },
 
