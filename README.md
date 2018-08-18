@@ -37,22 +37,22 @@ doing it and I used what I learned in the module itself. Nothing monumental but 
 
 ## Config.js entry and options
 
-    {
-		disabled: false,
-		module: "MMM-BMW-DS",
-		position: "bottom_bar",               // bottom_bar is best
-		config: {
-            apiKey: "YOUR API KEY GOES HERE", // Free API key @ darksky.net
-            tempUnits: "F",		              // C of F
-            lat: 'YOUR LATITUDE GOES HERE', 
-            lng: 'YOUR LONGITUDE GOES HERE',
-            css: "1",                         // 1-6 (default, Clean, Lord of the Rings, Handwriting, etc)
-            ownTitle: "Current Conditions",   // Use your own language and statement
-			useHeader: false,               
-			header: "Your header",
-			maxWidth: "100%",
-		}
-	},
+{
+    disabled: false,
+    module: "MMM-BMW-DS",
+    position: "bottom_bar",               // bottom_bar is best
+    config: {
+        apiKey: "YOUR API KEY GOES HERE", // Free API key @ darksky.net
+        tempUnits: "F",		              // C of F
+        lat: 'YOUR LATITUDE GOES HERE', 
+        lng: 'YOUR LONGITUDE GOES HERE',
+        css: "1",                         // 1-6 (default, Clean, Lord of the Rings, Handwriting, etc)
+        ownTitle: "Current Conditions",   // Use your own language and statement
+        useHeader: false,               
+        header: "Your header",
+        maxWidth: "100%",
+    }
+},
 	
 ## Language support
 
@@ -60,48 +60,48 @@ doing it and I used what I learned in the module itself. Nothing monumental but 
 
 * Supported languages from the API
 
-ar: Arabic
-az: Azerbaijani
-be: Belarusian
-bg: Bulgarian
-bs: Bosnian
-ca: Catalan
-cs: Czech
-da: Danish
-de: German
-el: Greek
-en: English (which is the default)
-es: Spanish
-et: Estonian
-fi: Finnish
-fr: French
-he: Hebrew
-hr: Croatian
-hu: Hungarian
-id: Indonesian
-is: Icelandic
-it: Italian
-ja: Japanese
-ka: Georgian
-ko: Korean
-kw: Cornish
-nb: Norwegian Bokmål
-nl: Dutch
-no: Norwegian Bokmål (alias for nb)
-pl: Polish
-pt: Portuguese
-ro: Romanian
-ru: Russian
-sk: Slovak
-sl: Slovenian
-sr: Serbian
-sv: Swedish
-tet: Tetum
-tr: Turkish
-uk: Ukrainian
-x-pig-latin: Igpay Atinlay
-zh: simplified Chinese
-zh-tw: traditional Chinese
+* ar: Arabic
+* az: Azerbaijani
+* be: Belarusian
+* bg: Bulgarian
+* bs: Bosnian
+* ca: Catalan
+* cs: Czech
+* da: Danish
+* de: German
+* el: Greek
+* en: English (which is the default)
+* es: Spanish
+* et: Estonian
+* fi: Finnish
+* fr: French
+* he: Hebrew
+* hr: Croatian
+* hu: Hungarian
+* id: Indonesian
+* is: Icelandic
+* it: Italian
+* ja: Japanese
+* ka: Georgian
+* ko: Korean
+* kw: Cornish
+* nb: Norwegian Bokmål
+* nl: Dutch
+* no: Norwegian Bokmål (alias for nb)
+* pl: Polish
+* pt: Portuguese
+* ro: Romanian
+* ru: Russian
+* sk: Slovak
+* sl: Slovenian
+* sr: Serbian
+* sv: Swedish
+* tet: Tetum
+* tr: Turkish
+* uk: Ukrainian
+* x-pig-latin: Igpay Atinlay
+* zh: simplified Chinese
+* zh-tw: traditional Chinese
 
 ## Thanks to "Big Salty" for suggesting a rewrite of MMM-BMW
 
