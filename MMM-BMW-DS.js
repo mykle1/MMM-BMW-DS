@@ -11,14 +11,15 @@ Module.register("MMM-BMW-DS", {
 		tempUnits: "",		                      // C  or F
         lat: "",                                  // Latitude
         lng: "",                                  // Longitude
-        css: "",                                 // 1-4 (default, Clean, Lord of the Rings, Handwriting)
+        css: "",                                  // 1-6 (default, Clean, Lord of the Rings, Handwriting, etc)
+        ownTitle: "",                             // Default = Current Conditions
         useHeader: false,                         // true if you want a header      
         header: "Your Header",                    // Any text you want. useHeader must be true
         maxWidth: "100%",
         animationSpeed: 3000,
         initialLoadDelay: 4250,
         retryDelay: 2500,
-        updateInterval: 5 * 60 * 1000,           // 5 minutes
+        updateInterval: 5 * 60 * 1000, 
         
         iconArray: {
             "clear-day": "clear",
@@ -46,11 +47,11 @@ Module.register("MMM-BMW-DS", {
 
     start: function() {
         Log.info("Starting module: " + this.name);
-
+        this.sendSocketNotification('CONFIG', this.config);
+		this.config.lang = this.config.lang || config.language;
 
         //  Set locale.
-        this.url = "https://api.darksky.net/forecast/" + this.config.apiKey + "/" + this.config.lat + "," + this.config.lng;
-        
+        this.url = "https://api.darksky.net/forecast/" + this.config.apiKey + "/" + this.config.lat + "," + this.config.lng + "?lang=" + config.language;
         this.forecast = {};
         this.scheduleUpdate();
     },
@@ -88,11 +89,20 @@ Module.register("MMM-BMW-DS", {
         if (typeof numbnuts !== 'undefined') { // This checks if element exists courtesy of @CBD
             
         if (this.config.tempUnits != "F") {
-			current.innerHTML = "Current conditions: &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
-			wrapper.appendChild(current);
+            if (this.config.ownTitle !== ""){
+			current.innerHTML =  this.config.ownTitle+":&nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
+        } else {
+            current.innerHTML =  "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
+        }
+            wrapper.appendChild(current);
 		} else {
-			current.innerHTML = "Current conditions: &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp "  + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
-			wrapper.appendChild(current);
+            if (this.config.ownTitle !== ""){
+			current.innerHTML = this.config.ownTitle+":&nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp "  + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
+        } else {
+            current.innerHTML = "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp "  + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
+                
+            }   
+                wrapper.appendChild(current);
 		}  
         } else {
             

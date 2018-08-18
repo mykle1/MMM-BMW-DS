@@ -33,5 +33,8 @@ module.exports = NodeHelper.create({
         if (notification === 'GET_WEATHER') {
             this.getWeather(payload);
         }
+        if (notification === 'CONFIG') {
+            this.config = payload;
+        }	
     }
 });
