@@ -37,7 +37,7 @@ doing it and I used what I learned in the module itself. Nothing monumental but 
 
 ## Config.js entry and options
 
-{
+    {
     disabled: false,
     module: "MMM-BMW-DS",
     position: "bottom_bar",               // bottom_bar is best
@@ -51,8 +51,8 @@ doing it and I used what I learned in the module itself. Nothing monumental but 
         useHeader: false,               
         header: "Your header",
         maxWidth: "100%",
-    }
-},
+           }
+    },
 	
 ## Language support
 
