@@ -90,14 +90,14 @@ Module.register("MMM-BMW-DS", {
             
         if (this.config.tempUnits != "F") {
             if (this.config.ownTitle !== ""){
-			current.innerHTML =  this.config.ownTitle+":&nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
+			current.innerHTML =  this.config.ownTitle + " &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
         } else {
             current.innerHTML =  "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
         }
             wrapper.appendChild(current);
 		} else {
             if (this.config.ownTitle !== ""){
-			current.innerHTML = this.config.ownTitle+":&nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp "  + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
+			current.innerHTML = this.config.ownTitle + " &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp "  + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
         } else {
             current.innerHTML = "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp "  + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
                 
@@ -107,10 +107,10 @@ Module.register("MMM-BMW-DS", {
         } else {
             
           if (this.config.tempUnits != "F") {
-			current.innerHTML = "Current conditions: &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.currently.icon + ".png>" +  " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.currently.summary;
+			current.innerHTML = this.config.ownTitle + " &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.currently.icon + ".png>" +  " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.currently.summary;
 			wrapper.appendChild(current);
 		} else {
-			current.innerHTML = "Current conditions: &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.currently.icon + ".png>" +  " &nbsp &nbsp "  + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.currently.summary;
+			current.innerHTML = this.config.ownTitle + " &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.currently.icon + ".png>" +  " &nbsp &nbsp "  + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.currently.summary;
 			wrapper.appendChild(current);
 		}   
         
