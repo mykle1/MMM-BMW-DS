@@ -7,20 +7,20 @@ Module.register("MMM-BMW-DS", {
 
     // Module config defaults.
     defaults: {
-		apiKey: "",                               // Get FREE API key from darksky.net
-		tempUnits: "",		                      // C  or F
-        lat: "",                                  // Latitude
-        lng: "",                                  // Longitude
-        css: "",                                  // 1-6 (default, Clean, Lord of the Rings, Handwriting, etc)
-        ownTitle: "",                             // Default = Current Conditions
-        useHeader: false,                         // true if you want a header      
-        header: "Your Header",                    // Any text you want. useHeader must be true
+        apiKey: "", // Get FREE API key from darksky.net
+        tempUnits: "", // C  or F
+        lat: "", // Latitude
+        lng: "", // Longitude
+        css: "", // 1-6 (default, Clean, Lord of the Rings, Handwriting, etc)
+        ownTitle: "", // Default = Current Conditions
+        useHeader: false, // true if you want a header      
+        header: "Your Header", // Any text you want. useHeader must be true
         maxWidth: "100%",
         animationSpeed: 3000,
         initialLoadDelay: 4250,
         retryDelay: 2500,
-        updateInterval: 5 * 60 * 1000, 
-        
+        updateInterval: 5 * 60 * 1000,
+
         iconArray: {
             "clear-day": "clear",
             "clear-night": "nt_clear",
@@ -35,12 +35,12 @@ Module.register("MMM-BMW-DS", {
         }
     },
 
-     // For choosing different css files for different fonts
-     getStyles: function() {
-         return ["modules/MMM-BMW-DS/css/MMM-BMW-DS" + this.config.css + ".css"];
+    // Gets correct css file from config.js 
+    getStyles: function() {
+        return ["modules/MMM-BMW-DS/css/MMM-BMW-DS" + this.config.css + ".css"];
     },
 
-    
+
     getScripts: function() {
         return ["moment.js"];
     },
@@ -48,7 +48,7 @@ Module.register("MMM-BMW-DS", {
     start: function() {
         Log.info("Starting module: " + this.name);
         this.sendSocketNotification('CONFIG', this.config);
-		this.config.lang = this.config.lang || config.language;
+        this.config.lang = this.config.lang || config.language;
 
         //  Set locale.
         this.url = "https://api.darksky.net/forecast/" + this.config.apiKey + "/" + this.config.lat + "," + this.config.lng + "?lang=" + config.language;
@@ -57,10 +57,23 @@ Module.register("MMM-BMW-DS", {
     },
 
     getDom: function() {
-        
-        function to_celcius (t) {
-		 	return (t - 32) * 5 / 9;              // convert fahrenheit to celcius
-		 }
+        var forecast = this.forecast;
+
+        // convert fahrenheit to celcius function
+        function to_celcius(t) {
+            return (t - 32) * 5 / 9;
+        }
+
+        // 12 or 24 hour time function based on config.js timeFormat // 
+        function getTime(gTime) {
+            if (this.config.timeFormat == "12") {
+                gTime = moment(forecast.time).format("h:mm a");
+            } else {
+                gTime = moment(forecast.time).format("H:MM");
+            }
+            return gTime
+        }
+
 
         var wrapper = document.createElement("div");
         wrapper.className = "wrapper";
@@ -79,92 +92,88 @@ Module.register("MMM-BMW-DS", {
             wrapper.appendChild(header);
         }
 
-            var forecast = this.forecast;
-        
-        
-            var current = document.createElement("div");
-            current.classList.add("small", "bright", "current");
-        
-            var numbnuts = forecast.minutely;
+
+        var current = document.createElement("div");
+        current.classList.add("small", "bright", "current");
+
+        // Check if element exists, courtesy of @CBD
+        var numbnuts = forecast.minutely;
         if (typeof numbnuts !== 'undefined') { // This checks if element exists courtesy of @CBD
-            
-        if (this.config.tempUnits != "F") {
-            if (this.config.ownTitle !== ""){
-			current.innerHTML =  this.config.ownTitle + " &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
-        } else {
-            current.innerHTML =  "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
-        }
-            wrapper.appendChild(current);
-		} else {
-            if (this.config.ownTitle !== ""){
-			current.innerHTML = this.config.ownTitle + " &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp "  + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
-        } else {
-            current.innerHTML = "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" +  " &nbsp &nbsp "  + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.minutely.summary;
-                
-            }   
+
+            if (this.config.tempUnits != "F") {
+                if (this.config.ownTitle !== "") {
+                    current.innerHTML = this.config.ownTitle + " &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" + " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + getTime() + " &nbsp " + forecast.minutely.summary;
+                } else {
+                    current.innerHTML = "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" + " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + getTime() + " &nbsp " + forecast.minutely.summary;
+                }
                 wrapper.appendChild(current);
-		}  
+            } else {
+                if (this.config.ownTitle !== "") {
+                    current.innerHTML = this.config.ownTitle + " &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" + " &nbsp &nbsp " + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + getTime() + " &nbsp " + forecast.minutely.summary;
+                } else {
+                    current.innerHTML = "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.minutely.icon + ".png>" + " &nbsp &nbsp " + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + getTime() + " &nbsp " + forecast.minutely.summary;
+
+                }
+                wrapper.appendChild(current);
+            }
         } else {
-            
-          if (this.config.tempUnits != "F") {
-			current.innerHTML = this.config.ownTitle + " &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.currently.icon + ".png>" +  " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.currently.summary;
-			wrapper.appendChild(current);
-		} else {
-			current.innerHTML = this.config.ownTitle + " &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.currently.icon + ".png>" +  " &nbsp &nbsp "  + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + moment(forecast.time).local().format("h:mm a") + ". &nbsp " + forecast.currently.summary;
-			wrapper.appendChild(current);
-		}   
-        
-    }  
-        
-        
+
+            if (this.config.tempUnits != "F") {
+                current.innerHTML = this.config.ownTitle + " &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.currently.icon + ".png>" + " &nbsp &nbsp " + Math.round(to_celcius(forecast.currently.temperature)) + "°C &nbsp @ &nbsp " + getTime() + " &nbsp " + forecast.currently.summary;
+                wrapper.appendChild(current);
+            } else {
+                current.innerHTML = this.config.ownTitle + " &nbsp &nbsp " + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.currently.icon + ".png>" + " &nbsp &nbsp " + Math.round(forecast.currently.temperature) + "°F &nbsp @ &nbsp " + getTime() + " &nbsp " + forecast.currently.summary;
+                wrapper.appendChild(current);
+            }
+
+        }
+
+
         var summary = document.createElement("div");
         summary.classList.add("xsmall", "bright", "summary");
         summary.innerHTML = forecast.hourly.summary; // + "<img class = image src=./modules/MMM-BMW/icons/" + forecast.hourly.icon + ".png>";
         wrapper.appendChild(summary);
-       
+
         // daily names, high/low and icons
         var daily = document.createElement("div");
         daily.classList.add("small", "bright", "daily");
-  		daily.innerHTML = this.config.tempUnits != "C" ?  /* ? shorthand if statement */
-           
-         moment.unix(forecast.daily.data[1].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[1].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[1].temperatureHigh) + "/" + Math.round(forecast.daily.data[1].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" 
-       + moment.unix(forecast.daily.data[2].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[2].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[2].temperatureHigh) + "/" + Math.round(forecast.daily.data[2].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
-       + moment.unix(forecast.daily.data[3].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[3].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[3].temperatureHigh) + "/" + Math.round(forecast.daily.data[3].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
-       + moment.unix(forecast.daily.data[4].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[4].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[4].temperatureHigh) + "/" + Math.round(forecast.daily.data[4].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
-       + moment.unix(forecast.daily.data[5].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[5].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[5].temperatureHigh) + "/" + Math.round(forecast.daily.data[5].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
-       + moment.unix(forecast.daily.data[6].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[6].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[6].temperatureHigh) + "/" + Math.round(forecast.daily.data[6].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
-       + moment.unix(forecast.daily.data[7].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[7].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[7].temperatureHigh) + "/" + Math.round(forecast.daily.data[7].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
+        daily.innerHTML = this.config.tempUnits != "C" ? /* ? shorthand if statement */
 
-         :     /* :  shorthand else */
-                    
-         moment.unix(forecast.daily.data[1].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[1].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[1].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[1].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" 
-       + moment.unix(forecast.daily.data[2].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[2].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[2].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[2].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
-       + moment.unix(forecast.daily.data[3].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[3].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[3].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[3].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
-       + moment.unix(forecast.daily.data[4].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[4].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[4].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[4].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
-       + moment.unix(forecast.daily.data[5].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[5].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[5].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[5].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
-       + moment.unix(forecast.daily.data[6].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[6].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[6].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[6].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
-       + moment.unix(forecast.daily.data[7].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[7].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[7].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[7].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
+            moment.unix(forecast.daily.data[1].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[1].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[1].temperatureHigh) + "/" + Math.round(forecast.daily.data[1].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+            moment.unix(forecast.daily.data[2].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[2].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[2].temperatureHigh) + "/" + Math.round(forecast.daily.data[2].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+            moment.unix(forecast.daily.data[3].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[3].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[3].temperatureHigh) + "/" + Math.round(forecast.daily.data[3].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+            moment.unix(forecast.daily.data[4].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[4].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[4].temperatureHigh) + "/" + Math.round(forecast.daily.data[4].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+            moment.unix(forecast.daily.data[5].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[5].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[5].temperatureHigh) + "/" + Math.round(forecast.daily.data[5].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+            moment.unix(forecast.daily.data[6].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[6].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[6].temperatureHigh) + "/" + Math.round(forecast.daily.data[6].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+            moment.unix(forecast.daily.data[7].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[7].icon + ".png>" + " &nbsp" + Math.round(forecast.daily.data[7].temperatureHigh) + "/" + Math.round(forecast.daily.data[7].temperatureLow) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
 
-        
+            :
+            /* :  shorthand else */
+
+            moment.unix(forecast.daily.data[1].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[1].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[1].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[1].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+            moment.unix(forecast.daily.data[2].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[2].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[2].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[2].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+            moment.unix(forecast.daily.data[3].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[3].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[3].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[3].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+            moment.unix(forecast.daily.data[4].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[4].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[4].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[4].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+            moment.unix(forecast.daily.data[5].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[5].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[5].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[5].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+            moment.unix(forecast.daily.data[6].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[6].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[6].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[6].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+            moment.unix(forecast.daily.data[7].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[7].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[7].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[7].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
+
         wrapper.appendChild(daily);
 
         return wrapper;
-		
     },
-    
+
     notificationReceived: function(notification, payload) {
         if (notification === 'HIDE_WEATHER') {
             this.hide(1000);
-        }  else if (notification === 'SHOW_WEATHER') {
+        } else if (notification === 'SHOW_WEATHER') {
             this.show(1000);
         }
-            
     },
-	
 
     processWeather: function(data) {
         this.forecast = data;
-//        console.log(this.forecast);
+        //        console.log(this.forecast);
         this.loaded = true;
     },
 
