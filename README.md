@@ -40,7 +40,7 @@ doing it and I used what I learned in the module itself. Nothing monumental but 
     {
     disabled: false,
     module: "MMM-BMW-DS",
-    position: "bottom_bar",               // bottom_bar is best
+    position: "bottom_bar",               // Fat bottom girls are best
     config: {
         apiKey: "YOUR API KEY GOES HERE", // Free API key @ darksky.net
         tempUnits: "F",		              // C of F
