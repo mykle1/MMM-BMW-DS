@@ -17,6 +17,14 @@ doing it and I used what I learned in the module itself. Nothing monumental but 
 * Support for a host of different languages from the API
 * CSS provided for coloring and sizing. Make it your own.
 
+## Simple sound support
+
+By default it will play rain sound when raining (when darksky data says it's raining)
+for one minute and then again every 5 minutes until the data changes. Same for thunder.
+You will have to provide the wind mp3 file and name it wind.mp3 and place it in the 
+sounds folder of this module. You can use any mp3 files you like as long as you name them
+rain.mp3, thunder.mp3 and wind.mp3 and place them in the sounds folder of this module.
+
 ## Examples
 
 * Default white
