@@ -166,11 +166,11 @@ Module.register("MMM-BMW-DS", {
                       sound.play();
         } else if (forecast.hourly.data[0].icon === "thunder"){
                       var sound = new Audio();
-                      sound.src = 'modules/MMM-BMW-DS/sounds/heavy_rain.mp3';
+                      sound.src = 'modules/MMM-BMW-DS/sounds/thunder.mp3';
                       sound.play();
         } else if (forecast.hourly.data[0].icon === "wind"){
                       var sound = new Audio();
-                      sound.src = 'modules/MMM-BMW-DS/sounds/heavy_rain.mp3';
+                      sound.src = 'modules/MMM-BMW-DS/sounds/wind.mp3';
                       sound.play();
                 }
 
