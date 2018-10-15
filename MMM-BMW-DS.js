@@ -13,7 +13,7 @@ Module.register("MMM-BMW-DS", {
         lng: "", // Longitude
         css: "", // 1-6 (default, Clean, Lord of the Rings, Handwriting, etc)
         ownTitle: "", // Default = Current Conditions
-        useHeader: false, // true if you want a header      
+        useHeader: false, // true if you want a header
         header: "Your Header", // Any text you want. useHeader must be true
         maxWidth: "100%",
         animationSpeed: 3000,
@@ -35,7 +35,7 @@ Module.register("MMM-BMW-DS", {
         }
     },
 
-    // Gets correct css file from config.js 
+    // Gets correct css file from config.js
     getStyles: function() {
         return ["modules/MMM-BMW-DS/css/MMM-BMW-DS" + this.config.css + ".css"];
     },
@@ -64,7 +64,7 @@ Module.register("MMM-BMW-DS", {
             return (t - 32) * 5 / 9;
         }
 
-        // 12 or 24 hour time function based on config.js timeFormat // 
+        // 12 or 24 hour time function based on config.js timeFormat //
         function getTime(gTime) {
             if (this.config.timeFormat == "12") {
                 gTime = moment(forecast.time).format("h:mm a");
@@ -157,8 +157,22 @@ Module.register("MMM-BMW-DS", {
             moment.unix(forecast.daily.data[5].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[5].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[5].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[5].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
             moment.unix(forecast.daily.data[6].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[6].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[6].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[6].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
             moment.unix(forecast.daily.data[7].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[7].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[7].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[7].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
+            wrapper.appendChild(daily);
 
-        wrapper.appendChild(daily);
+                // Sound for rain, wind, thunder, etc.
+                if (forecast.hourly.data[0].icon === "rain"){
+                      var sound = new Audio();
+                      sound.src = 'modules/MMM-BMW-DS/sounds/rain.mp3';
+                      sound.play();
+        } else if (forecast.hourly.data[0].icon === "thunder"){
+                      var sound = new Audio();
+                      sound.src = 'modules/MMM-BMW-DS/sounds/heavy_rain.mp3';
+                      sound.play();
+        } else if (forecast.hourly.data[0].icon === "wind"){
+                      var sound = new Audio();
+                      sound.src = 'modules/MMM-BMW-DS/sounds/heavy_rain.mp3';
+                      sound.play();
+                }
 
         return wrapper;
     },
@@ -173,7 +187,7 @@ Module.register("MMM-BMW-DS", {
 
     processWeather: function(data) {
         this.forecast = data;
-        //        console.log(this.forecast);
+                console.log(this.forecast);
         this.loaded = true;
     },
 
