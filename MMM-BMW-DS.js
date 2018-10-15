@@ -160,15 +160,15 @@ Module.register("MMM-BMW-DS", {
             wrapper.appendChild(daily);
 
                 // Sound for rain, wind, thunder, etc.
-                if (forecast.hourly.data[0].icon === "rain"){
-                      var sound = new Audio();
-                      sound.src = 'modules/MMM-BMW-DS/sounds/rain.mp3';
-                      sound.play();
-        } else if (forecast.hourly.data[0].icon === "thunder"){
+                if (forecast.hourly.data[0].icon == "rain"){
+                      var sound = new Audio()
+                      sound.src = 'modules/MMM-BMW-DS/sounds/rain.mp3'
+                      sound.play()
+        } else if (forecast.hourly.data[0].icon == "thunder"){
                       var sound = new Audio();
                       sound.src = 'modules/MMM-BMW-DS/sounds/thunder.mp3';
                       sound.play();
-        } else if (forecast.hourly.data[0].icon === "wind"){
+        } else if (forecast.hourly.data[0].icon == "wind"){
                       var sound = new Audio();
                       sound.src = 'modules/MMM-BMW-DS/sounds/wind.mp3';
                       sound.play();
@@ -187,7 +187,7 @@ Module.register("MMM-BMW-DS", {
 
     processWeather: function(data) {
         this.forecast = data;
-                console.log(this.forecast);
+    //            console.log(this.forecast);
         this.loaded = true;
     },
 
