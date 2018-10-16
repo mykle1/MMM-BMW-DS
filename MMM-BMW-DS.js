@@ -11,7 +11,7 @@ Module.register("MMM-BMW-DS", {
         tempUnits: "", // C  or F
         lat: "", // Latitude
         lng: "", // Longitude
-        css: "", // 1-6 (default, Clean, Lord of the Rings, Handwriting, etc)
+        css: "", // 1=default, 2=Clean, 3=Lord of the Rings, 4=handwriting, 5=Julee, 6=Englebert
         ownTitle: "", // Default = Current Conditions
         useHeader: false, // true if you want a header
         header: "Your Header", // Any text you want. useHeader must be true
@@ -37,7 +37,12 @@ Module.register("MMM-BMW-DS", {
 
     // Gets correct css file from config.js
     getStyles: function() {
+      if(this.config.css != ""){
         return ["modules/MMM-BMW-DS/css/MMM-BMW-DS" + this.config.css + ".css"];
+      } else {
+        return ["modules/MMM-BMW-DS/css/MMM-BMW-DS1.css"]; // default.css
+      }
+
     },
 
 
