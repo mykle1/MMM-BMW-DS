@@ -54,7 +54,7 @@ rain.mp3, thunder.mp3 and wind.mp3 and place them in the sounds folder of this m
         tempUnits: "F",		              // C of F
         lat: 'YOUR LATITUDE GOES HERE', 
         lng: 'YOUR LONGITUDE GOES HERE',
-        css: "1",                         // 1-6 (default, Clean, Lord of the Rings, Handwriting, etc)
+        css: "1", // 1=default, 2=Clean, 3=Lord of the Rings, 4=handwriting, 5=Julee, 6=Englebert, "" = returns default css
         ownTitle: "Current Conditions",   // Use your own language and statement
         useHeader: false,               
         header: "Your header",
