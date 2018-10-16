@@ -8,9 +8,9 @@ Module.register("MMM-BMW-DS", {
     // Module config defaults.
     defaults: {
         apiKey: "", // Get FREE API key from darksky.net
-        tempUnits: "", // C  or F
-        lat: "", // Latitude
-        lng: "", // Longitude
+        tempUnits: "C", // C  or F
+        lat: "40.123456", // Latitude
+        lng: "-74.123456", // Longitude
         css: "1", // 1=default, 2=Clean, 3=Lord of the Rings, 4=handwriting, 5=Julee, 6=Englebert
         ownTitle: "", // Default = Current Conditions
         useHeader: false, // true if you want a header
