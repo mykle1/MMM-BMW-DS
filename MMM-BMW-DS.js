@@ -12,7 +12,7 @@ Module.register("MMM-BMW-DS", {
         lat: "40.123456", // Latitude
         lng: "-74.123456", // Longitude
         css: "1", // 1=default, 2=Clean, 3=Lord of the Rings, 4=handwriting, 5=Julee, 6=Englebert
-        ownTitle: "", // Default = Current Conditions
+        ownTitle: "Current Conditions", // Default = Current Conditions
         useHeader: false, // true if you want a header
         header: "Your Header", // Any text you want. useHeader must be true
         maxWidth: "100%",
