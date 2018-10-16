@@ -11,7 +11,7 @@ Module.register("MMM-BMW-DS", {
         tempUnits: "", // C  or F
         lat: "", // Latitude
         lng: "", // Longitude
-        css: "", // 1=default, 2=Clean, 3=Lord of the Rings, 4=handwriting, 5=Julee, 6=Englebert
+        css: "1", // 1=default, 2=Clean, 3=Lord of the Rings, 4=handwriting, 5=Julee, 6=Englebert
         ownTitle: "", // Default = Current Conditions
         useHeader: false, // true if you want a header
         header: "Your Header", // Any text you want. useHeader must be true
