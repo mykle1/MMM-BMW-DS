@@ -13,6 +13,7 @@ Module.register("MMM-BMW-DS", {
         lng: "-74.123456", // Longitude
         css: "1", // 1=default, 2=Clean, 3=Lord of the Rings, 4=handwriting, 5=Julee, 6=Englebert
         ownTitle: "Current Conditions", // Default = Current Conditions
+        playSounds: "yes", // yes = weather sounds, no = no weather sounds
         useHeader: false, // true if you want a header
         header: "Your Header", // Any text you want. useHeader must be true
         maxWidth: "100%",
@@ -164,16 +165,18 @@ Module.register("MMM-BMW-DS", {
             moment.unix(forecast.daily.data[7].time).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-DS/icons/" + forecast.daily.data[7].icon + ".png>" + " &nbsp" + Math.round(to_celcius(forecast.daily.data[7].temperatureHigh)) + "/" + Math.round(to_celcius(forecast.daily.data[7].temperatureLow)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp"
             wrapper.appendChild(daily);
 
+
+
                 // Sound for rain, wind, thunder, etc.
-                if (forecast.hourly.data[0].icon == "rain"){
+                if (forecast.hourly.data[0].icon == "rain" && this.config.playSounds == "yes"){
                       var sound = new Audio()
                       sound.src = 'modules/MMM-BMW-DS/sounds/rain.mp3'
                       sound.play()
-        } else if (forecast.hourly.data[0].icon == "thunder"){
+        } else if (forecast.hourly.data[0].icon == "thunder" && this.config.playSounds == "yes"){
                       var sound = new Audio();
                       sound.src = 'modules/MMM-BMW-DS/sounds/thunder.mp3';
                       sound.play();
-        } else if (forecast.hourly.data[0].icon == "wind"){
+        } else if (forecast.hourly.data[0].icon == "wind" && this.config.playSounds == "yes"){
                       var sound = new Audio();
                       sound.src = 'modules/MMM-BMW-DS/sounds/wind.mp3';
                       sound.play();
