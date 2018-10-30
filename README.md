@@ -56,6 +56,7 @@ rain.mp3, thunder.mp3 and wind.mp3 and place them in the sounds folder of this m
         lng: 'YOUR LONGITUDE GOES HERE',
         css: "1", // 1=default, 2=Clean, 3=Lord of the Rings, 4=handwriting, 5=Julee, 6=Englebert, "" = returns default css
         ownTitle: "Current Conditions",   // Use your own language and statement
+        playSounds: "yes", // yes = weather sounds, no = no weather sounds
         useHeader: false,               
         header: "Your header",
         maxWidth: "100%",
