@@ -51,7 +51,7 @@ rain.mp3, thunder.mp3 and wind.mp3 and place them in the sounds folder of this m
     position: "bottom_bar",               // bottom_bar is best
     config: {
         apiKey: "YOUR API KEY GOES HERE", // Free API key @ darksky.net
-        tempUnits: "F",		              // C of F
+        tempUnits: "F",		              // C or F
         lat: 'YOUR LATITUDE GOES HERE', 
         lng: 'YOUR LONGITUDE GOES HERE',
         css: "1", // 1=default, 2=Clean, 3=Lord of the Rings, 4=handwriting, 5=Julee, 6=Englebert, "" = returns default css
