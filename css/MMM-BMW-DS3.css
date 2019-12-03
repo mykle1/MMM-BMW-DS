@@ -21,19 +21,18 @@
 .MMM-BMW-DS .current {
   color: #FFFFFF;               /* text forecast color. Default is white. */
   font-family: Modern Antiqua, cursive;
-  font-size: .6em;
+/*  font-size: .6em; */
 }
 
 .MMM-BMW-DS .summary {
   color: #FFFFFF;               /* text forecast color. Default is white. */
   font-family: Muli;
-  font-size: .6em;  
-  display: none;           /* uncomment to hide */
+/*  font-size: .6em; */
+ /* display: none; */          /* uncomment to hide */
 }
 
 .MMM-BMW-DS .daily {
   color: #FFFFFF;               /* days of the week color. Default is white. */
   font-family: Modern Antiqua, cursive;
-  font-size: .6em; 
+/*  font-size: .6em; */
 }
-
