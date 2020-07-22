@@ -38,12 +38,11 @@ Module.register("MMM-BMW-DS", {
 
     // Gets correct css file from config.js
     getStyles: function() {
-      if(this.config.css != ""){
-        return ["modules/MMM-BMW-DS/css/MMM-BMW-DS" + this.config.css + ".css"];
-      } else {
-        return ["modules/MMM-BMW-DS/css/MMM-BMW-DS1.css"]; // default.css
-      }
-
+        let styles = [this.file("css/MMM-BMW-DS.css")];
+        if(this.config.css != ""){
+            styles.push(this.file("css/MMM-BMW-DS" + this.config.css + ".css"));
+        }
+        return styles;
     },
 
 

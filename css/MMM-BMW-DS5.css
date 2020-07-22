@@ -6,31 +6,8 @@
 
 @import url('https://fonts.googleapis.com/css?family=Julee');
 
-.MMM-BMW-DS .header {
-  color: yellow;               /* Header color. */
-}
-.MMM-BMW-DS .image {              /* icon size */
-   width: 1.75%;
-   height: 1.75%;
-   margin-top: -10px;
-   margin-bottom: -10px;
-}
-
-.MMM-BMW-DS .current {
-  color: #FFFFFF;               /* text forecast color. Default is white. */
-  font-family: Julee;
-/*  font-size: .6em; */
-}
-
-.MMM-BMW-DS .summary {
-  color: #FFFFFF;               /* text forecast color. Default is white. */
-  font-family: Julee;
-/*  font-size: .6em; */
- /* display: none; */          /* uncomment to hide */
-}
-
+.MMM-BMW-DS .current,
+.MMM-BMW-DS .summary,
 .MMM-BMW-DS .daily {
-  color: #FFFFFF;               /* days of the week color. Default is white. */
   font-family: Julee;
-/*  font-size: .6em; */
 }
