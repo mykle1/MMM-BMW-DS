@@ -10,6 +10,7 @@
   .MMM-BMW-DS .image {             /* icon size */
      width: 1em;
      height: 1em;
+     margin: -5px;
   }
   
   .MMM-BMW-DS .current {
